@@ -1,3 +1,4 @@
+from rich import print
 from typing import Sequence
 from langchain_core.prompt_values import PromptValue
 from typing_extensions import TypedDict, Annotated
@@ -68,12 +69,23 @@ def main():
 
     query = "What's my name?"
     language = "Portugese"
+
     input_messages = messages + [HumanMessage(query)]
-    output = app.invoke(
-        {"messages": input_messages, "language": language}, 
-        config
-    )
-    output["messages"][-1].pretty_print()  # output contains all messages in state
+    # output = app.invoke(
+    #     {"messages": input_messages, "language": language}, 
+    #     config,
+    #     stream_mode="messages",
+    # )
+    # output["messages"][-1].pretty_print()  # output contains all messages in state
+    for chunk, metadata in app.stream(
+        {"messages": input_messages, "language": language},
+        config,
+        stream_mode="messages",
+    ):
+        if isinstance(chunk, AIMessage):  # Filter to just model responses
+            print(chunk.content, end="")
+    print()
+    print(metadata)
 
     return 0
 
