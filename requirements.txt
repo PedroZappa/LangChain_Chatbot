@@ -1,0 +1,7 @@
+mypy
+pytest
+pytest-env
+black
+rich
+langchain
+langchain[ollama]
