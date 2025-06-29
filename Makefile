@@ -9,7 +9,7 @@ SHELL	:= bash --rcfile ~/.bashrc
 #                                     NAMES                                    #
 #==============================================================================#
 
-NAME = lanchain_chatbot
+NAME = langchain_chatbot
 MAIN = main.py
 SRC = .
 ARGS = 
